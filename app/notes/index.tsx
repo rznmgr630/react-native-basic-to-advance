@@ -1,4 +1,5 @@
 import Button from "@/components/button";
+import AddNewNote from "@/components/notes/AddNewNote";
 import NoteList from "@/components/notes/NoteList";
 import { useState } from "react";
 import { Modal, StyleSheet, Text, TextInput, View } from "react-native";
@@ -10,15 +11,13 @@ const NoteScreen = () => {
     { id: 3, title: "Note 3" },
   ]);
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [newNote, setNewNote] = useState<string>("");
 
-  const saveNote = () => {
-    const trimNote = newNote.trim();
+  const saveNote = (note: string) => {
+    const trimNote = note.trim();
     if (trimNote) {
       const newNotes = [...notes, { id: Math.random(), title: trimNote }];
       setNotes(newNotes);
       setShowModal(false);
-      setNewNote("");
     }
   };
 
@@ -33,35 +32,12 @@ const NoteScreen = () => {
         type="add"
       />
 
-      <Modal
-        visible={showModal}
-        transparent={true}
-        onRequestClose={() => setShowModal(false)}
-        animationType="slide"
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Add a New Note</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter note..."
-              placeholderTextColor={"#aaa"}
-              value={newNote}
-              onChangeText={setNewNote}
-            />
-
-            {/* cancel and save btn */}
-            <View style={styles.modalBtns}>
-              <Button
-                title="Cancel"
-                onPress={() => setShowModal(false)}
-                type="cancel"
-              />
-              <Button title="Save" onPress={saveNote} type="save" />
-            </View>
-          </View>
-        </View>
-      </Modal>
+      {/* Add new note modal */}
+      <AddNewNote
+        setShowModal={setShowModal}
+        showModal={showModal}
+        saveNote={saveNote}
+      />
     </View>
   );
 };
