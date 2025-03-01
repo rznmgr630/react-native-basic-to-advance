@@ -1,3 +1,4 @@
+import NoteItem from "@/components/notes/NoteItem";
 import { useState } from "react";
 import {
   FlatList,
@@ -33,11 +34,7 @@ const NoteScreen = () => {
       <FlatList
         data={notes}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.noteItem}>
-            <Text style={styles.noteText}>{item.title}</Text>
-          </View>
-        )}
+        renderItem={({ item }) => <NoteItem item={item} />}
       />
       <TouchableOpacity
         style={styles.addBtn}
@@ -86,17 +83,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-  },
-  noteItem: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    backgroundColor: "#f5f5f5",
-    padding: 15,
-    borderRadius: 5,
-    marginVertical: 5,
-  },
-  noteText: {
-    fontSize: 18,
   },
   addBtn: {
     position: "absolute",
