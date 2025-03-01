@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import { useRouter } from "expo-router";
 
 import FileLogo from "@/assets/images/post-it.png";
+import Button from "@/components/button";
 
 const HomeScreen = () => {
   const router = useRouter();
@@ -15,9 +16,11 @@ const HomeScreen = () => {
       <Text style={styles.subtitle}>
         Capture your thoughts anytime, anywhere
       </Text>
-      <TouchableOpacity style={styles.btn} onPress={handleClick}>
-        <Text style={styles.btnText}>Get Started</Text>
-      </TouchableOpacity>
+      <Button
+        onPress={() => router.push("/notes")}
+        title="Get Started"
+        type="goTo"
+      />
     </View>
   );
 };
@@ -45,18 +48,6 @@ const styles = StyleSheet.create({
     color: "#666",
     textAlign: "center",
     marginBottom: 20,
-  },
-  btn: {
-    backgroundColor: "#007bff",
-    paddingVertical: 12,
-    paddingHorizontal: 25,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  btnText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
   },
 });
 

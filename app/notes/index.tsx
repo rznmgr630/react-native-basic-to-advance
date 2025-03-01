@@ -1,15 +1,7 @@
-import NoteItem from "@/components/notes/NoteItem";
+import Button from "@/components/button";
 import NoteList from "@/components/notes/NoteList";
 import { useState } from "react";
-import {
-  FlatList,
-  Modal,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Modal, StyleSheet, Text, TextInput, View } from "react-native";
 
 const NoteScreen = () => {
   const [notes, setNotes] = useState([
@@ -34,12 +26,12 @@ const NoteScreen = () => {
     <View style={styles.container}>
       <NoteList notes={notes} />
 
-      <TouchableOpacity
-        style={styles.addBtn}
+      {/* Add btn */}
+      <Button
+        title="+ Add Note"
         onPress={() => setShowModal(true)}
-      >
-        <Text style={styles.addBtnText}>+ Add Note</Text>
-      </TouchableOpacity>
+        type="add"
+      />
 
       <Modal
         visible={showModal}
@@ -60,15 +52,12 @@ const NoteScreen = () => {
 
             {/* cancel and save btn */}
             <View style={styles.modalBtns}>
-              <TouchableOpacity
-                style={styles.cancelBtn}
+              <Button
+                title="Cancel"
                 onPress={() => setShowModal(false)}
-              >
-                <Text style={styles.cancelBtnText}>Cancel</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.saveBtn} onPress={saveNote}>
-                <Text style={styles.saveBtnText}>Save</Text>
-              </TouchableOpacity>
+                type="cancel"
+              />
+              <Button title="Save" onPress={saveNote} type="save" />
             </View>
           </View>
         </View>
@@ -81,21 +70,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-  },
-  addBtn: {
-    position: "absolute",
-    bottom: 20,
-    left: 20,
-    right: 20,
-    backgroundColor: "#007bff",
-    padding: 15,
-    borderRadius: 8,
-    alignItems: "center",
-  },
-  addBtnText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "bold",
   },
   modalOverlay: {
     flex: 1,
@@ -127,29 +101,6 @@ const styles = StyleSheet.create({
   modalBtns: {
     flexDirection: "row",
     justifyContent: "space-between",
-  },
-  cancelBtn: {
-    backgroundColor: "#ccc",
-    padding: 10,
-    borderRadius: 5,
-    flex: 1,
-    marginRight: 10,
-    alignItems: "center",
-  },
-  cancelBtnText: {
-    fontSize: 16,
-    color: "#333",
-  },
-  saveBtn: {
-    backgroundColor: "#007bff",
-    padding: 10,
-    borderRadius: 5,
-    flex: 1,
-    alignItems: "center",
-  },
-  saveBtnText: {
-    fontSize: 16,
-    color: "#fff",
   },
 });
 
