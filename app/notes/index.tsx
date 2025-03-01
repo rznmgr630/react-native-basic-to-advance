@@ -4,6 +4,7 @@ import {
   Modal,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -15,6 +16,7 @@ const NoteScreen = () => {
     { id: 3, title: "Note 3" },
   ]);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [newNote, setNewNote] = useState<string>("");
 
   return (
     <View style={styles.container}>
@@ -43,19 +45,26 @@ const NoteScreen = () => {
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <Text style={styles.modalTitle}>Add a New Note</Text>
-          </View>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter note..."
+              placeholderTextColor={"#aaa"}
+              value={newNote}
+              onChangeText={setNewNote}
+            />
 
-          {/* cancel and save btn */}
-          <View style={styles.modalBtns}>
-            <TouchableOpacity
-              style={styles.cancelBtn}
-              onPress={() => setShowModal(false)}
-            >
-              <Text style={styles.cancelBtnText}>Cancel</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.saveBtn}>
-              <Text style={styles.saveBtnText}>Save</Text>
-            </TouchableOpacity>
+            {/* cancel and save btn */}
+            <View style={styles.modalBtns}>
+              <TouchableOpacity
+                style={styles.cancelBtn}
+                onPress={() => setShowModal(false)}
+              >
+                <Text style={styles.cancelBtnText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.saveBtn}>
+                <Text style={styles.saveBtnText}>Save</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Modal>
@@ -111,6 +120,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
     textAlign: "center",
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 8,
+    padding: 10,
+    fontSize: 16,
+    marginBottom: 15,
   },
 
   modalBtns: {
