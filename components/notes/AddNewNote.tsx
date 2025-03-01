@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CustomModal from "../modal";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Button from "../button";
 import Input from "../form/input";
 
