@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Modal,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 const NoteScreen = () => {
   const [notes, setNotes] = useState([
@@ -7,6 +14,7 @@ const NoteScreen = () => {
     { id: 2, title: "Note 2" },
     { id: 3, title: "Note 3" },
   ]);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   return (
     <View style={styles.container}>
@@ -19,6 +27,38 @@ const NoteScreen = () => {
           </View>
         )}
       />
+      <TouchableOpacity
+        style={styles.addBtn}
+        onPress={() => setShowModal(true)}
+      >
+        <Text style={styles.addBtnText}>+ Add Note</Text>
+      </TouchableOpacity>
+
+      <Modal
+        visible={showModal}
+        transparent={true}
+        onRequestClose={() => setShowModal(false)}
+        animationType="slide"
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Add a New Note</Text>
+          </View>
+
+          {/* cancel and save btn */}
+          <View style={styles.modalBtns}>
+            <TouchableOpacity
+              style={styles.cancelBtn}
+              onPress={() => setShowModal(false)}
+            >
+              <Text style={styles.cancelBtnText}>Cancel</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.saveBtn}>
+              <Text style={styles.saveBtnText}>Save</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -38,6 +78,67 @@ const styles = StyleSheet.create({
   },
   noteText: {
     fontSize: 18,
+  },
+  addBtn: {
+    position: "absolute",
+    bottom: 20,
+    left: 20,
+    right: 20,
+    backgroundColor: "#007bff",
+    padding: 15,
+    borderRadius: 8,
+    alignItems: "center",
+  },
+  addBtnText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContent: {
+    backgroundColor: "#fff",
+    padding: 20,
+    borderRadius: 10,
+    width: "80%",
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+    textAlign: "center",
+  },
+
+  modalBtns: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  cancelBtn: {
+    backgroundColor: "#ccc",
+    padding: 10,
+    borderRadius: 5,
+    flex: 1,
+    marginRight: 10,
+    alignItems: "center",
+  },
+  cancelBtnText: {
+    fontSize: 16,
+    color: "#333",
+  },
+  saveBtn: {
+    backgroundColor: "#007bff",
+    padding: 10,
+    borderRadius: 5,
+    flex: 1,
+    alignItems: "center",
+  },
+  saveBtnText: {
+    fontSize: 16,
+    color: "#fff",
   },
 });
 
