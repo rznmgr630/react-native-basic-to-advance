@@ -1,4 +1,5 @@
 import NoteItem from "@/components/notes/NoteItem";
+import NoteList from "@/components/notes/NoteList";
 import { useState } from "react";
 import {
   FlatList,
@@ -31,11 +32,8 @@ const NoteScreen = () => {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={notes}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <NoteItem item={item} />}
-      />
+      <NoteList notes={notes} />
+
       <TouchableOpacity
         style={styles.addBtn}
         onPress={() => setShowModal(true)}
