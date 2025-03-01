@@ -5,7 +5,7 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <Image source={FileLogo} style={styles.image} />
-      <Text style={styles.title}>Welcome to Rajan's Notes App</Text>
+      <Text style={styles.title}>Welcome to Notes App</Text>
       <Text style={styles.subtitle}>
         Capture your thoughts anytime, anywhere
       </Text>
