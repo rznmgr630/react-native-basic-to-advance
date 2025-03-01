@@ -2,6 +2,7 @@ import { useState } from "react";
 import CustomModal from "../modal";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import Button from "../button";
+import Input from "../form/input";
 
 type Props = {
   showModal: boolean;
@@ -27,12 +28,11 @@ const AddNewNote = ({ showModal, setShowModal, saveNote }: Props) => {
       <View style={styles.modalOverlay}>
         <View style={styles.modalContent}>
           <Text style={styles.modalTitle}>Add a New Note</Text>
-          <TextInput
-            style={styles.input}
+          <Input
             placeholder="Enter note..."
             placeholderTextColor={"#aaa"}
             value={note}
-            onChangeText={setNote}
+            onChange={setNote}
           />
 
           {/* cancel and save btn */}
@@ -69,14 +69,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     textAlign: "center",
   },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    padding: 10,
-    fontSize: 16,
-    marginBottom: 15,
-  },
+
   modalBtns: {
     flexDirection: "row",
     justifyContent: "space-between",
