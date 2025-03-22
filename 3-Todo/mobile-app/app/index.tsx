@@ -36,6 +36,13 @@ const App = () => {
     setTodos(updatedTodos);
   };
 
+  const showAlertModal = (id: number) => {
+    Alert.alert("Delete Todo", "Are you sure you want to delete this todo?", [
+      { text: "Cancel", onPress: () => console.log("Cancel pressed") },
+      { text: "Delete", onPress: () => deleteTodo(id) },
+    ]);
+  };
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -69,7 +76,7 @@ const App = () => {
                     <Text style={styles.todoText}>{todo.content}</Text>
                   </View>
                   <TouchableOpacity
-                    onPress={() => deleteTodo(todo.id)}
+                    onPress={() => showAlertModal(todo.id)}
                     style={styles.deleteButton}
                   >
                     <Icon name="delete" size={24} color="#fff" />
