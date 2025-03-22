@@ -1,0 +1,14 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "react-native", // Explicitly add this for JSX support
+    "paths": {
+      "@/*": ["./*"] // Path alias for imports (e.g., @/components)
+    },
+    "esModuleInterop": true, // Optional: Helps with module imports
+    "skipLibCheck": true, // Optional: Speeds up compilation
+    "forceConsistentCasingInFileNames": true // Optional: Enforces consistent file naming
+  },
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
+}
