@@ -1,4 +1,5 @@
 import AppButton from "@/components/Button";
+import { useRouter } from "expo-router";
 import {
   Image,
   ImageBackground,
@@ -9,6 +10,8 @@ import {
 } from "react-native";
 
 export default function Home() {
+  const router = useRouter();
+
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -27,7 +30,7 @@ export default function Home() {
         <View style={styles.buttonContainer}>
           <AppButton
             title="Login"
-            onPress={() => console.log("Login pressed")}
+            onPress={() => router.push("/listing/page")}
           />
           <AppButton
             btnColor="secondary"
