@@ -20,3 +20,14 @@
 - Access to native APIs
 - Huge community and ecosystem
 - Hot reloading
+
+### 4. Text
+
+- It is used to display the text in our app
+- we should not place our text anywhere in the app
+
+```js
+<Text numberOfLines={1}>Hello world</Text>
+```
+
+> Here numberOfLines will display in the single line and truncate the text if it is too long.
