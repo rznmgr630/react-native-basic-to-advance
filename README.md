@@ -219,6 +219,26 @@ const styles = new StyleSheet.create({
 
 > Note: Here the `StatusBar` is used to get the properties of the status bar.
 
+> Note: In the above Platform we have used the `Platform.OS` to check the platform and used the platform specific code which is applicable if we want 1 or 2 properties to update based on the platform. so to solve that problem we can use `Platform.select({})` which takes an object with the platform as key and the styles as value.
+
+```js
+const styles = new StyleSheet.create({
+  container: {
+    backgroundColor: "#F5FCFF",
+    ...Platform.select({
+      ios: {
+        paddingTop: 20,
+        fontFamily: "Avenir",
+      },
+      android: {
+        paddingTop: 10,
+        fontFamily: "Roboto",
+      },
+    }),
+  },
+});
+```
+
 ### 5. Layout
 
 #### 1. Dimension
@@ -266,3 +286,43 @@ const styles = new StyleSheet.create({
 > Tips: When we use the `flexWrap as wrap` then the `alignItems` will act differently. Now to align the items in the center of the screen we must be `alignContent` to center
 
 > In react native by default we have the current position set to `relative` so. we can move the element from their current postion to the new postion using `top, bottom,left, right`. If we set the postion to `absolute` then the element will be postioned relative to `parent`.
+
+### 6. Styling
+
+#### 1. Borders
+
+- Props
+- `borderWidth` : the width of the border
+- `borderColor` : the color of the border
+- `borderRadius` : the radius of the border
+- `borderStyle` : the style of the border
+- `borderTopWidth` : the width of the top border
+- `borderBottomWidth` : the width of the bottom border
+- `borderLeftWidth` : the width of the left border
+- `borderRightWidth` : the width of the right border
+- `borderTopLeftRadius` : the radius of the top left corner
+
+> Note: To make the View rounded we must set the `borderRadius` to 50 but the height and width must be same
+
+#### 2. Shadows
+
+- Props
+- `shadowColor` : the color of the shadow
+- `shadowOffset` : the offset of the shadow `shadowOpacity: {width:0 , height:10}`
+- `shadowOpacity` : the opacity of the shadow [0-1]
+- `shadowRadius` : the radius of the shadow
+- `elevation` : the elevation of the view
+
+> Note: The `elevation` is only works for the android and other mentioned above works for ios only
+
+#### 3. Icons
+
+- In order to add the icons we can use the vector icons from the `@expo/vector-icons`
+
+```js
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+
+<View>
+  <MaterialCommunityIcons name={"email"} size={20} color={"blue"} />
+</View>;
+```
