@@ -1,14 +1,25 @@
 import ListingCard from "@/components/Card/ListingCard";
-import { Platform, SafeAreaView, StatusBar, StyleSheet } from "react-native";
+import { useRouter } from "expo-router";
+import {
+  Platform,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 
 export default function Listing() {
+  const router = useRouter();
+
   return (
     <SafeAreaView style={styles.container}>
-      <ListingCard
-        title="Baby Sketch"
-        imageSource={require("@/assets/images/baby.jpg")}
-        price="$100"
-      />
+      <TouchableOpacity onPress={() => router.push("/listing/1/page")}>
+        <ListingCard
+          title="Baby Sketch"
+          imageSource={require("@/assets/images/baby.jpg")}
+          price="$100"
+        />
+      </TouchableOpacity>
       <ListingCard
         title="Girl Sketch"
         imageSource={require("@/assets/images/girl.jpg")}

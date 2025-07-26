@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
 - We can use the `Platform.OS` to check the platform and use the platform specific code.
 
 ```js
-const styles = new StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     backgroundColor: "#F5FCFF",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
@@ -222,7 +222,7 @@ const styles = new StyleSheet.create({
 > Note: In the above Platform we have used the `Platform.OS` to check the platform and used the platform specific code which is applicable if we want 1 or 2 properties to update based on the platform. so to solve that problem we can use `Platform.select({})` which takes an object with the platform as key and the styles as value.
 
 ```js
-const styles = new StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     backgroundColor: "#F5FCFF",
     ...Platform.select({
