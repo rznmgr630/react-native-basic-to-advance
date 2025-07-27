@@ -4,6 +4,7 @@ export type ColorType = {
   black: string;
   white: string;
   medium: string;
+  light: string;
 };
 
 const color: ColorType = {
@@ -12,6 +13,7 @@ const color: ColorType = {
   black: "#000",
   white: "#fff",
   medium: "#6e6969",
+  light: "#f8f4f4",
 };
 
 export default color;
