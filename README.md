@@ -326,3 +326,132 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
   <MaterialCommunityIcons name={"email"} size={20} color={"blue"} />
 </View>;
 ```
+
+### 7. List
+
+#### 1. FlatList
+
+- FlatList is a React Native component for rendering flat, scrollable lists of data.
+- It optimizes performance by rendering only the visible items and recycling them as the user scrolls, reducing memory usage and improving speed compared to a basic ScrollView with many children.
+
+```js
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  RefreshControl,
+  TouchableOpacity,
+} from "react-native";
+
+const App = () => {
+  const [data, setData] = useState([
+    { id: "1", name: "Item 1" },
+    { id: "2", name: "Item 2" },
+    { id: "3", name: "Item 3" },
+  ]);
+  const [refreshing, setRefreshing] = useState(false);
+  const [page, setPage] = useState(1);
+
+  const renderItem = ({ item }) => (
+    <TouchableOpacity
+      style={styles.item}
+      onPress={() => alert(`Pressed ${item.name}`)}
+    >
+      <Text style={styles.itemText}>{item.name}</Text>
+    </TouchableOpacity>
+  );
+
+  const renderHeader = () => (
+    <View style={styles.header}>
+      <Text style={styles.headerText}>My List</Text>
+    </View>
+  );
+
+  const renderFooter = () => (
+    <View style={styles.footer}>
+      <Text style={styles.footerText}>End of List</Text>
+    </View>
+  );
+
+  const renderSeparator = () => <View style={styles.separator} />;
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setData([{ id: `${Date.now()}`, name: "New Item" }, ...data]);
+      setRefreshing(false);
+    }, 1000);
+  };
+
+  const onEndReached = () => {
+    const newItems = Array.from({ length: 3 }, (_, i) => ({
+      id: `${page * 3 + i + 1}`,
+      name: `Item ${page * 3 + i + 1}`,
+    }));
+    setData([...data, ...newItems]);
+    setPage(page + 1);
+  };
+
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        ListHeaderComponent={renderHeader}
+        ListFooterComponent={renderFooter}
+        ItemSeparatorComponent={renderSeparator}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        onEndReached={onEndReached}
+        onEndReachedThreshold={0.5}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingTop: 20,
+  },
+  item: {
+    backgroundColor: "#007AFF",
+    padding: 15,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderRadius: 5,
+  },
+  itemText: {
+    color: "#fff",
+    fontSize: 18,
+  },
+  header: {
+    padding: 20,
+    backgroundColor: "#f0f0f0",
+    alignItems: "center",
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  footer: {
+    padding: 20,
+    alignItems: "center",
+  },
+  footerText: {
+    fontSize: 16,
+    color: "#666",
+  },
+  separator: {
+    height: 1,
+    backgroundColor: "#ccc",
+    marginHorizontal: 16,
+  },
+});
+
+export default App;
+```
