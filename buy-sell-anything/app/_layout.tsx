@@ -9,7 +9,8 @@ export default function RootLayout() {
       <Stack screenOptions={{ headerShown: false }}>
         {/* <Stack.Screen name="home/page" />
         <Stack.Screen name="listing/page" /> */}
-        <Stack.Screen name="account/page" />
+        {/* <Stack.Screen name="account/page" /> */}
+        <Stack.Screen name="login/page" />
       </Stack>
     </SafeAreaView>
   );

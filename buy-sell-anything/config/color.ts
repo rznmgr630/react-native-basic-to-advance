@@ -5,6 +5,8 @@ export type ColorType = {
   white: string;
   medium: string;
   light: string;
+  dark: string;
+  danger: string;
 };
 
 const color: ColorType = {
@@ -14,6 +16,8 @@ const color: ColorType = {
   white: "#fff",
   medium: "#6e6969",
   light: "#f8f4f4",
+  dark: "#0c0c0c",
+  danger: "#ff5252",
 };
 
 export default color;
