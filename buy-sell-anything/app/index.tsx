@@ -1,10 +1,10 @@
 import { Platform, SafeAreaView, StatusBar, StyleSheet } from "react-native";
-import ListingDetail from "./listing/[id]/page";
+import Account from "./account/page";
 
 export default function Index() {
   return (
     <SafeAreaView style={styles.container}>
-      <ListingDetail />
+      <Account />
     </SafeAreaView>
   );
 }
