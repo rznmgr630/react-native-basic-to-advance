@@ -1,11 +1,11 @@
-import { Platform, SafeAreaView, StatusBar, StyleSheet } from "react-native";
-import Login from "./(auth)/login/page";
 import color from "@/config/color";
+import { Platform, SafeAreaView, StatusBar, StyleSheet } from "react-native";
+import ImagePick from "./camera/page";
 
 export default function Index() {
   return (
     <SafeAreaView style={styles.container}>
-      <Login />
+      <ImagePick />
     </SafeAreaView>
   );
 }
