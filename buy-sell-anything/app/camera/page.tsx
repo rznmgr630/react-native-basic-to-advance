@@ -1,4 +1,5 @@
 import color from "@/config/color";
+import useAccessUserLocation from "@/hooks/useAccessUserLocation";
 import useMediaLibraryPermission from "@/hooks/useMediaLibraryPermission";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
@@ -20,6 +21,8 @@ export default function MultipleImagePicker() {
     null
   );
   const hasPermission = useMediaLibraryPermission();
+  const location = useAccessUserLocation();
+  console.log(location);
 
   const selectImage = async () => {
     if (!hasPermission) {
