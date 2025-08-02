@@ -8,17 +8,14 @@ import {
   Image,
   Platform,
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
 } from "react-native";
 
-export default function MultipleImagePicker() {
-  const [images, setImages] = useState<ImagePicker.ImagePickerAsset[] | null>(
-    null
-  );
+export default function SingleImagePicker() {
+  const [image, setImage] = useState<ImagePicker.ImagePickerAsset | null>(null);
   const hasPermission = useMediaLibraryPermission();
 
   const selectImage = async () => {
@@ -30,55 +27,45 @@ export default function MultipleImagePicker() {
     try {
       const { canceled, assets } = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ["images", "videos"],
-        selectionLimit: 10,
-        allowsMultipleSelection: true,
+        selectionLimit: 1,
         quality: 1,
       });
 
-      if (!canceled) setImages(assets);
+      if (!canceled) setImage(assets[0]);
     } catch (error) {
       console.error("Error selecting image:", error);
     }
   };
 
-  const handleDelete = (index: number) => {
+  const handleDelete = () => {
     Alert.alert("Delete Image", "Are your sure you want to delete this image", [
       { text: "No", onPress: () => {} },
-      {
-        text: "Yes",
-        onPress: () => {
-          const updatedImages = images?.filter((_, i) => i !== index) ?? null;
-          setImages(updatedImages);
-        },
-      },
+      { text: "Yes", onPress: () => setImage(null) },
     ]);
   };
 
   return (
-    <ScrollView horizontal>
-      <SafeAreaView style={styles.container}>
-        {images?.length &&
-          images.map((image, index) => (
-            <View style={styles.imageContainer} key={index}>
-              <Image
-                source={{ uri: image.uri }}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  resizeMode: "cover",
-                }}
-              />
-
-              <TouchableWithoutFeedback onPress={() => handleDelete(index)}>
-                <MaterialCommunityIcons
-                  name="trash-can"
-                  size={20}
-                  color={color.medium}
-                  style={styles.trashIcon}
-                />
-              </TouchableWithoutFeedback>
-            </View>
-          ))}
+    <SafeAreaView style={styles.container}>
+      {image ? (
+        <View style={styles.imageContainer}>
+          <Image
+            source={{ uri: image.uri }}
+            style={{
+              width: "100%",
+              height: "100%",
+              resizeMode: "cover",
+            }}
+          />
+          <TouchableWithoutFeedback onPress={handleDelete}>
+            <MaterialCommunityIcons
+              name="trash-can"
+              size={20}
+              color={color.medium}
+              style={styles.trashIcon}
+            />
+          </TouchableWithoutFeedback>
+        </View>
+      ) : (
         <TouchableWithoutFeedback onPress={selectImage}>
           <View style={styles.camera}>
             <MaterialCommunityIcons
@@ -88,8 +75,8 @@ export default function MultipleImagePicker() {
             />
           </View>
         </TouchableWithoutFeedback>
-      </SafeAreaView>
-    </ScrollView>
+      )}
+    </SafeAreaView>
   );
 }
 
@@ -107,8 +94,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
     backgroundColor: color.white,
-    flexDirection: "row",
-    gap: 10,
   },
   imageContainer: {
     width: 100,
