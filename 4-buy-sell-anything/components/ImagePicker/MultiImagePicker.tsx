@@ -3,7 +3,7 @@ import useAccessUserLocation from "@/hooks/useAccessUserLocation";
 import useMediaLibraryPermission from "@/hooks/useMediaLibraryPermission";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Alert,
   Image,
@@ -16,11 +16,17 @@ import {
   View,
 } from "react-native";
 
-export default function MultipleImagePicker() {
+type Props = {
+  imageUris: string[];
+  setImages: (value: string[]) => void;
+};
+
+export default function MultipleImagePicker({
+  imageUris = [],
+  setImages,
+}: Props) {
   const scrollView = useRef<ScrollView>(null);
-  const [images, setImages] = useState<ImagePicker.ImagePickerAsset[] | null>(
-    null
-  );
+  const [images, setLocalImages] = useState<string[] | null>(null);
   const hasPermission = useMediaLibraryPermission();
   const location = useAccessUserLocation();
 
@@ -39,7 +45,9 @@ export default function MultipleImagePicker() {
       });
 
       if (!canceled) {
-        setImages(assets);
+        const images = assets.map((asset) => asset.uri);
+        setLocalImages(images);
+        setImages(images);
 
         setTimeout(() => {
           scrollView.current?.scrollToEnd({ animated: true });
@@ -57,11 +65,15 @@ export default function MultipleImagePicker() {
         text: "Yes",
         onPress: () => {
           const updatedImages = images?.filter((_, i) => i !== index) ?? null;
-          setImages(updatedImages);
+          setLocalImages(updatedImages);
         },
       },
     ]);
   };
+
+  useEffect(() => {
+    if (imageUris.length) setLocalImages(imageUris);
+  }, [imageUris]);
 
   return (
     <ScrollView
@@ -76,7 +88,7 @@ export default function MultipleImagePicker() {
           images.map((image, index) => (
             <View style={styles.imageContainer} key={index}>
               <Image
-                source={{ uri: image.uri }}
+                source={{ uri: image }}
                 style={{
                   width: "100%",
                   height: "100%",

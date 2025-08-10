@@ -1,19 +1,21 @@
-import { View, SafeAreaView } from "react-native";
-import React from "react";
 import {
   AppForm as Form,
   AppFormField as FormField,
   SubmitButton,
 } from "@/components/Form";
+import React from "react";
+import { SafeAreaView, View } from "react-native";
 
-import * as Yup from "yup";
+import FormMultiImagePicker from "@/components/Form/FormMultiImagePicker";
 import Select from "@/components/Form/Select";
+import * as Yup from "yup";
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(4).label("Title"),
   price: Yup.number().required().min(1).max(1000).label("Price"),
   description: Yup.string().label("Description"),
   category: Yup.string().required().nullable().label("Category"),
+  images: Yup.array().min(1, "Please select at least one image"),
 });
 
 const AddListing = () => {
@@ -28,8 +30,10 @@ const AddListing = () => {
             price: 0,
             description: "",
             category: null,
+            images: [],
           }}
         >
+          <FormMultiImagePicker name="images" />
           <FormField name="title" maxLength={255} placeholder="Title" />
           <FormField
             name="price"
